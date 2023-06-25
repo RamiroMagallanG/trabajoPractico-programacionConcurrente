@@ -6,7 +6,7 @@ public class Duende implements Runnable{
 
 	//--------------------------
 	public void run(){
-		this.duenio.incrementarDuendes();
+		this.duenio.incrementarDuendes(); // Incrementar el contador de duendes en PapaNoel
 	}
 	//--------------------------
 	public Duende(int numeroDuende, PapaNoel duenio) {

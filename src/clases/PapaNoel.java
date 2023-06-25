@@ -9,26 +9,31 @@ public class PapaNoel {
 	public void despertar(){
 		this.dormido = false;
 		if(this.contadorReno==9){
-			System.out.println("REPARTIR REGALOS.");
+			System.out.println("************************** SANTA CLAUS DESPERTO Y VA A REPARTIR LOS REGALOS.");
 			this.contadorReno = 0;
-			notifyAll();
+			synchronized(this) {
+				notifyAll();// Despertar a todos los hilos que están esperando en este objeto PapaNoel
+			}
 		} else {
 			if(this.contadorDuende == 3){
-				System.out.println("AYUDAR DUENDE.");
+				System.out.println("************************** SANTA CLAUS DESPERTO Y VA A AYUDAR A LOS DUENDES.");
 				this.contadorDuende = 0;
-				notifyAll();
+				synchronized(this) {
+					notifyAll();// Despertar a todos los hilos que están esperando en este objeto PapaNoel
+				}	
 			}
 		}
 		this.dormido = true;
 	}
 	public synchronized void incrementarRenos(){
 		this.contadorReno++;
+		System.out.println("Reno vuelve de vacaciones!");
 		if(this.contadorReno==9){
 			while(!this.dormido){
 				try{
-					wait();
+					wait(); // Poner en espera a los hilos hasta que sean despertados por el método despertar()
 				} catch(InterruptedException e) {
-					e.toString();
+					e.printStackTrace(); // Imprimir información de la excepción
 				}
 			}
 			despertar();
@@ -36,12 +41,13 @@ public class PapaNoel {
 	}
 	public synchronized void incrementarDuendes(){
 		this.contadorDuende++;
+		System.out.println("Duende necesita ayuda!");
 		if(this.contadorDuende==3){
 			while(!this.dormido){
 				try{
-					wait();
+					wait();// Poner en espera a los hilos hasta que sean despertados por el método despertar()
 				} catch(InterruptedException e) {
-					e.toString();
+					e.printStackTrace(); // Imprimir información de la excepción
 				}
 			}
 			despertar();
@@ -69,10 +75,10 @@ public class PapaNoel {
 		this.contadorDuende = contadorDuende;
 	}
 
-	public boolean isdormido() {
+	public boolean isDormido() {
 		return dormido;
 	}
-	public void setdormido(boolean dormido) {
+	public void setDormido(boolean dormido) {
 		this.dormido = dormido;
 	}
 }

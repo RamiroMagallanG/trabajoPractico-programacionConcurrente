@@ -6,7 +6,7 @@ public class Reno implements Runnable{
 	
 	//--------------------------
 	public void run(){
-		this.duenio.incrementarRenos();
+		this.duenio.incrementarRenos(); // Incrementar el contador de renos en PapaNoel
 	}
 	//--------------------------
 	public Reno(int numeroReno, PapaNoel duenio) {
